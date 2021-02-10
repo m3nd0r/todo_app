@@ -1,4 +1,1 @@
-TODO app
-Flask back + React front
-
-Learning
+# rpg TODO list v0.0.1
