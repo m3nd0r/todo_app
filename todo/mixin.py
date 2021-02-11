@@ -1,7 +1,9 @@
 from flask_login import UserMixin
 
+
 class CardMixin():
     pass
+
 
 class ProjectUserMixin(UserMixin):
     """
@@ -11,3 +13,4 @@ class ProjectUserMixin(UserMixin):
     - логаут
     - какие-нибудь уведомления
     """
+    pass

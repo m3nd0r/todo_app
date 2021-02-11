@@ -3,6 +3,9 @@ from flask import redirect, request
 
 
 class AbstractView(View):
+    """
+    Приместь ко всем вьюхам
+    """
     methods = ['GET', 'POST']
 
     def dispatch_request(self, **kwargs):
