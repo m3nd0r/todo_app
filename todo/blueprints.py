@@ -1,5 +1,6 @@
 from flask import Blueprint
-from todo.views import index
+from todo import views
+
 
 blueprint = Blueprint(
     'todo_blueprint',
@@ -9,7 +10,5 @@ blueprint = Blueprint(
     static_folder='static'
 )
 
-blueprint.add_url_rule(
-    'index',
-    view_func=index
-)
+blueprint.add_url_rule('/', view_func=views.IndexView.as_view('index'))
+blueprint.add_url_rule('/card.html', view_func=views.CardView.as_view('card'))

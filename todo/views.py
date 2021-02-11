@@ -1,6 +1,15 @@
 from flask import redirect, render_template, url_for
 from todo.models import Todo
+from lib.core_views import AbstractView
 
-def index():
-    first_todo = Todo.query.filter_by(id=1).first()
-    return render_template('/index.html', first_todo=first_todo)
+
+class IndexView(AbstractView):
+
+    def get(self):
+        return render_template('/index.html')
+
+
+class CardView(AbstractView):
+
+    def get(self):
+        return render_template('/card.html')
