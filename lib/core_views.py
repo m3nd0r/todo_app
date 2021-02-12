@@ -1,5 +1,7 @@
 from flask.views import View
-from flask import redirect, request
+from flask import redirect, request, g
+
+# from lib.utils import get_current_user
 
 
 class AbstractView(View):
@@ -21,3 +23,10 @@ class AbstractView(View):
 
     def post(self):
         return redirect('/')
+
+
+class CoreView(object):
+    """
+    Всякие разные постоянно повторяющиеся методы и утилки
+    """
+    pass

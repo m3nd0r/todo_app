@@ -1,22 +1,12 @@
 from flask_login import UserMixin
-from lib.database import db
 from sqlalchemy import Binary, Column, Date, DateTime, Integer, String, Text
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from todo.mixin import CardMixin, ProjectUserMixin
+from todo import login_manager, db
 
 
-class Todo(db.Model):
-
-    __tablename__ = 'Todo'
-
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text)
-
-    def __str__(self):
-        return f'{self.id} {self.content}'
-
-
-class Card(CardMixin, db.Model):
+class Card(db.Model):
 
     __tablename__ = 'Card'
 
@@ -26,12 +16,11 @@ class Card(CardMixin, db.Model):
     active = db.Column(db.Boolean, default=True, index=True)
     status = db.Column(db.String(60), index=True, default='draft')
 
-
     def __str__(self):
         return f'<Card {self.id}>' or '---'
 
 
-class User(ProjectUserMixin, UserMixin, db.Model):
+class User(UserMixin, db.Model):
 
     __tablename__ = 'User'
 
@@ -53,3 +42,11 @@ class User(ProjectUserMixin, UserMixin, db.Model):
         if not self.password:
             return False
         return check_password_hash(self.password, password)
+
+    def __str__(self):
+        return f'<User {self.id} {self.email}>' or '---'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
