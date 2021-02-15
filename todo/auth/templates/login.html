@@ -1,4 +1,6 @@
 
+{% extends "base.html" %}
+
 {% block content %}
     <h1>Sign In</h1>
     <form action="" method="post" novalidate>
@@ -22,7 +24,7 @@
             {% endfor %}
         </p>
         <p>Нет аккаунта?<br>
-        <a href="{{ url_for('todo.register') }}">Нажми сюда,</a> чтобы зарегистрироваться</p>
+        <a href="{{ url_for('auth.register') }}">Нажми сюда,</a> чтобы зарегистрироваться</p>
         <button type="submit">{{('Войти')}}</button>
     </form>
 {% endblock %}

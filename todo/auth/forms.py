@@ -1,6 +1,8 @@
 import wtforms
 from wtforms import validators
 from flask_wtf import FlaskForm
+from todo.auth.models import User
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 
 
 class LoginForm(FlaskForm):

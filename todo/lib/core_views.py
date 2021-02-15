@@ -1,7 +1,7 @@
+from flask import g, redirect, request
 from flask.views import View
-from flask import redirect, request, g
 
-# from lib.utils import get_current_user
+from todo.lib.utils import get_current_user
 
 
 class AbstractView(View):
@@ -29,4 +29,6 @@ class CoreView(object):
     """
     Всякие разные постоянно повторяющиеся методы и утилки
     """
-    pass
+    @property
+    def user(self):
+        return get_current_user()
