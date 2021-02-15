@@ -2,5 +2,22 @@
 
 
 {% block content %}
+<div style="text-align: center;">
     <h3>Карточка</h3>
+    {% if form %}
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.todo_content.label }}
+                {{ form.todo_content(size=32) }}
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+    {% endif %}
+
+    {% for todo in todo_list %}
+        <p>{{ todo.content }} - {{todo.status}} | <a href="/delete/{{ todo.id }}">Delete</a></p>
+
+    {% endfor %}
+</div>
 {% endblock content %}

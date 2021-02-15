@@ -6,9 +6,10 @@ from werkzeug.utils import cached_property
 from datetime import datetime
 from .forms import LoginForm, RegistrationForm
 from .models import User
+from flask.views import MethodView
 
 
-class LoginView(CoreView, AbstractView):
+class LoginView(CoreView, MethodView):
 
     @cached_property
     def form(self):
@@ -40,7 +41,7 @@ class LoginView(CoreView, AbstractView):
                 return redirect(next_page)
 
 
-class RegistrationView(CoreView, AbstractView):
+class RegistrationView(CoreView, MethodView):
 
     @cached_property
     def form(self):
@@ -70,7 +71,7 @@ class RegistrationView(CoreView, AbstractView):
         return self.get()
 
 
-class LogoutView(CoreView, AbstractView):
+class LogoutView(CoreView, MethodView):
     """ Выйти из системы. """
 
     def get(self):
