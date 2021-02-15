@@ -16,8 +16,9 @@
     {% endif %}
 
     {% for todo in todo_list %}
-        <p>{{ todo.content }} - {{todo.status}} | <a href="/delete/{{ todo.id }}">Delete</a></p>
-
+        {% if todo.active %}
+            <p>{{ todo.content }} - {{todo.status}} | <a href="/delete/{{ todo.id }}">Delete</a></p>
+        {% endif %}
     {% endfor %}
 </div>
 {% endblock content %}

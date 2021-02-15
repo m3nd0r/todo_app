@@ -39,13 +39,17 @@ class CardView(CoreView, MethodView):
 class DeleteTodoView(CoreView, MethodView):
 
     def get(self, todo_id):
-        print(todo_id)
         todo = Card.query.filter_by(id=todo_id).first()
         db.session.delete(todo)
         db.session.commit()
 
         return redirect(url_for('todo.card'))
 
+
+class ModifyTodoView(CoreView, MethodView):
+
+    def get(self, todo_id):
+        pass
 
 class ProfileView(CoreView, MethodView):
     def get(self):
