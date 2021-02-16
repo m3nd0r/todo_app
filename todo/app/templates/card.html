@@ -2,23 +2,62 @@
 
 
 {% block content %}
-<div style="text-align: center;">
-    <h3>Карточка</h3>
-    {% if form %}
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
-            <div>
-                {{ form.todo_content.label }}
-                {{ form.todo_content(size=32) }}
-                <button type="submit">Добавить</button>
-            </div>
-        </form>
-    {% endif %}
 
-    {% for todo in todo_list %}
-        {% if todo.active %}
-            <p>{{ todo.content }} - {{todo.status}} | <a href="/delete/{{ todo.id }}">Delete</a></p>
-        {% endif %}
-    {% endfor %}
-</div>
+  <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+    <div class="mb-4">
+      <h1 class="text-2xl font-bold text-grey-500 text-center">Список дел:</h1>
+      <div class="flex mt-4">
+        {% include "partials/_form.html" %}
+      </div>
+    </div>
+    <div>
+      {% if todo_list %}
+        {% for todo in todo_list %}
+        <div class="flex mb-4 items-center">
+          <p class="w-full text-grey-darkest">
+            <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red" href="/update/{{ todo.id }}">{{ todo.content }}</a>
+          </p>
+          <button >
+            <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500" href="/delete/{{ todo.id }}">
+              Удалить
+            </a>
+          </button>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-center">Нет задач</p>
+      {% endif %}
+    </div>
+  </div>
+
 {% endblock content %}
+
+
+{# <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+    <div class="mb-4">
+        <h1 class="text-grey-darkest">Карточка</h1>
+        {% if form %}
+            <div class="flex mt-4">
+                <form class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <div>
+                        {{ form.todo_content.label }}
+                        {{ form.todo_content(size=32) }}
+                        <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" type="submit">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    <div class="flex mb-4 items-center">
+        {% for todo in todo_list %}
+            {% if todo.active %}
+                <div class="flex mb-4 items-center">
+                    <p class="w-full text-grey-darkest">{{ todo.content }} - {{todo.status}}
+                        <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red" href="/delete/{{ todo.id }}">Delete</a>
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div> #}
