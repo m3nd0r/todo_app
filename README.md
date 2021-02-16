@@ -1,1 +1,1 @@
-# rpg TODO list v0.0.1
+# rpg TODO list v0.0.2
