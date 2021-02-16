@@ -14,3 +14,9 @@ def get_current_user(default_email=None):
 
     if default_email:
         return User.query.filter_by(email=default_email).first()
+
+def get_todo_id():
+    """
+    Получить объект todo, по которому тыкнули
+    """
+    pass

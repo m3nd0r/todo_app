@@ -5,9 +5,9 @@ from todo import db
 from todo.app.mixin import CardMixin
 
 
-class Card(db.Model):
+class TodoCard(db.Model):
 
-    __tablename__ = 'Card'
+    __tablename__ = 'TodoCard'
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
@@ -16,4 +16,4 @@ class Card(db.Model):
     status = db.Column(db.String(60), index=True, default='draft')
 
     def __str__(self):
-        return f'<Card {self.id}>' or '---'
+        return f'<TodoCard {self.id}>' or '---'

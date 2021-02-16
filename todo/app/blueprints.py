@@ -11,7 +11,8 @@ blueprint = Blueprint(
 
 blueprint.add_url_rule('/', view_func=views.IndexView.as_view('index'))
 
-blueprint.add_url_rule('/card', view_func=views.CardView.as_view('card'))
+blueprint.add_url_rule('/card', view_func=views.AddTodoView.as_view('card'))
+blueprint.add_url_rule('/complete/<int:todo_id>', view_func=views.CompleteTodoView.as_view('complete'))
 blueprint.add_url_rule('/delete/<int:todo_id>', view_func=views.DeleteTodoView.as_view('delete'))
 blueprint.add_url_rule('/update/<int:todo_id>', view_func=views.ModifyTodoView.as_view('update'))
 blueprint.add_url_rule('/profile', view_func=views.ProfileView.as_view('profile'))

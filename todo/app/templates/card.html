@@ -15,8 +15,21 @@
         {% for todo in todo_list %}
         <div class="flex mb-4 items-center">
           <p class="w-full text-grey-darkest">
-            <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red" href="/update/{{ todo.id }}">{{ todo.content }}</a>
+            {% if todo.status == 'complete' %}
+            <a class="w-full text-grey-darkest line-through" href="/complete/{{ todo.id }}">
+              {{ todo.content }}
+            </a>
+            {% else %}
+            <a class="w-full text-grey-darkest" href="/complete/{{ todo.id }}">
+              {{ todo.content}}
+            </a>
+            {% endif %}
           </p>
+          <button >
+            <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-blue-400 border-blue-400 hover:text-white hover:bg-blue-400" href="/update/{{ todo.id }}">
+              Изменить
+            </a>
+          </button>
           <button >
             <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500" href="/delete/{{ todo.id }}">
               Удалить

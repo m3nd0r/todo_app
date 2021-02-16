@@ -1,7 +1,7 @@
 from flask import g, redirect, request
 from flask.views import MethodView
 
-from todo.lib.utils import get_current_user
+from todo.lib.utils import get_current_user, get_todo_id
 
 
 class AbstractView(MethodView):
@@ -38,3 +38,7 @@ class CoreView(object):
     @property
     def user(self):
         return get_current_user()
+
+    @property
+    def todo_id(self):
+        return get_todo_id()
