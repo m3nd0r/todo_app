@@ -1,7 +1,7 @@
 from flask import g, redirect, request
 from flask.views import MethodView
 from todo.lib.utils import get_current_user, get_todo
-from todo.app.models import TodoCard
+from todo.app.models import Todo
 
 
 class AbstractView(MethodView):

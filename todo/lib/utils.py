@@ -1,7 +1,7 @@
 
 from flask import g, redirect, url_for
 from todo.auth.models import User
-from todo.app.models import TodoCard
+from todo.app.models import Todo
 from flask_login import current_user
 
 from functools import wraps
@@ -22,7 +22,7 @@ def get_todo(todo_id):
     """
     Получить объект todo
     """
-    todo = TodoCard.query.filter_by(id=todo_id).first()
+    todo = Todo.query.filter_by(id=todo_id).first()
     if todo:
         return todo
 
