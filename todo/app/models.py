@@ -29,3 +29,7 @@ class TodoCard(db.Model):
     status = db.Column(db.String(60), index=True, default='draft')
     todo = db.relationship('Todo', backref='todo_card', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('todo_user.id'))
+
+    @property
+    def items(self):
+        return Todo.query.filter(Todo.todo_card_id == self.id).order_by(Todo.d_create).all()

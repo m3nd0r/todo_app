@@ -25,9 +25,9 @@ class CardView(CoreView, MethodView):
     def get(self):
         add_card_form = AddTodoCardForm()
         add_todo = AddTodoForm()
-        todo_list = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.d_create).all()
+        # todo_list = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.d_create).all()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
-        return render_template('/card.html', add_card_form=add_card_form, add_todo=add_todo, todo_card_list=todo_card_list, todo_list=todo_list)
+        return render_template('/card.html', add_card_form=add_card_form, add_todo=add_todo, todo_card_list=todo_card_list)
 
 
 class AddTodoCardView(CoreView, MethodView):
@@ -46,7 +46,6 @@ class AddTodoCardView(CoreView, MethodView):
         form = self.form
         if form.validate_on_submit():
             new_todo_card = TodoCard(user_id=current_user.id, name=form.todo_card_name.data)
-            print(new_todo_card)
             db.session.add(new_todo_card)
             db.session.commit()
 
@@ -68,7 +67,11 @@ class AddTodoView(CoreView, MethodView):
     def post(self):
         form = self.form
         if form.validate_on_submit():
-            new_todo = Todo(content=form.todo_content.data, active=True, d_create=datetime.now(), user_id=current_user.id)
+            new_todo = Todo(
+                content=form.todo_content.data,
+                active=True,
+                d_create=datetime.now(),
+                user_id=current_user.id)
             db.session.add(new_todo)
             db.session.commit()
 
