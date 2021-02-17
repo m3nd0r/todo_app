@@ -1,0 +1,11 @@
+li.warning {
+    color: orange;
+}
+
+li.error {
+    color: orangered;
+}
+
+button.test_button {
+    background-color: orchid;
+}

@@ -1,7 +1,7 @@
 from os import path
 
 from flask import Blueprint, Flask
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from todo.lib.database import db
 from todo.app.blueprints import blueprint as bp1
 from todo.auth.blueprints import blueprint as bp2

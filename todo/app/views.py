@@ -1,11 +1,13 @@
 from datetime import datetime
 
 from flask import flash, redirect, render_template, request, session, url_for
+from flask_user import roles_required, login_required
 from flask.views import MethodView
 from todo import db
 from todo.app.forms import AddTodoForm, UpdateTodoForm
 from todo.app.models import TodoCard
 from todo.lib.core_views import AbstractView, CoreView
+from todo.lib.utils import get_todo, user_required
 from werkzeug.utils import cached_property
 
 
@@ -15,6 +17,14 @@ class IndexView(CoreView, MethodView):
     """
     def get(self):
         return render_template('/index.html')
+
+
+class CardView(CoreView, MethodView):
+    """
+    Страница с отображением всех карточек с делами
+    """
+    def get(self):
+        return render_template('/card.html')
 
 
 class AddTodoView(CoreView, MethodView):
@@ -45,7 +55,7 @@ class DeleteTodoView(CoreView, MethodView):
     Удаление одной задачи
     """
     def get(self, todo_id):
-        todo = TodoCard.query.filter_by(id=todo_id).first()
+        todo = get_todo(todo_id)
         db.session.delete(todo)
         db.session.commit()
 
@@ -62,11 +72,11 @@ class ModifyTodoView(CoreView, MethodView):
         return UpdateTodoForm()
 
     def get(self, todo_id):
-        todo = TodoCard.query.filter_by(id=todo_id).first()
+        todo = get_todo(todo_id)
         return render_template('/update.html', form=self.form, todo=todo)
 
     def post(self, todo_id):
-        todo = TodoCard.query.filter_by(id=todo_id).first()
+        todo = get_todo(todo_id)
         form = self.form
         if form.validate_on_submit():
             todo.content = form.todo_content.data
@@ -75,23 +85,27 @@ class ModifyTodoView(CoreView, MethodView):
 
             return redirect(url_for('todo.card'))
 
+
 class CompleteTodoView(CoreView, MethodView):
     """
     Завершение задачи
     """
 
     def get(self, todo_id):
-        todo = TodoCard.query.filter_by(id=todo_id).first()
+        todo = get_todo(todo_id)
+        if todo:
+            if todo.status == 'draft':
+                todo.status = 'complete'
+            else:
+                todo.status = 'draft'
 
-        if todo.status != 'complete':
-            todo.status = 'complete'
+            db.session.add(todo)
+            db.session.commit()
         else:
-            todo.status = 'draft'
-
-        db.session.add(todo)
-        db.session.commit()
+            flash(f'Задачи №{todo_id} не существует!', 'warning')
 
         return redirect(url_for('todo.card'))
+
 
 class ProfileView(CoreView, MethodView):
     """

@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@2.0/dist/tailwind.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <body>
     <div class="w-full font-sans" style="text-align: center;">
@@ -26,6 +27,8 @@
     <div class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
         <div class="h-100 w-full flex items-center justify-center font-sans">
             {% block content %}
+                {% block flashes %}
+                {% endblock %}
             {% endblock %}
         </div>
     </div>
