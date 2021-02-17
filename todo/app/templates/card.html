@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="flex mt-4">
+  {# <div class="flex mt-4">
     <form action="/add_card" method="post">
       {{ add_card_form.todo_card_name(class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker") }}
       {{ add_card_form.submit(class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal bg-green-600") }}
     </form>
-  </div>
+  </div> #}
 
-{# {% if todo_card_list %}
-  {% for todo_card in todo_card_list %}
+{# {% if todo_card_list %} #}
+  {# {% for todo_card in todo_card_list %} #}
     <div class="h-100 w-full flex items-center justify-center font-sans">
       <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div class="mb-4">
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-  {% endfor %}
-{% endif %} #}
+  {# {% endfor %} #}
+{# {% endif %} #}
 
 {% endblock content %}
