@@ -3,21 +3,6 @@
 {% block content %}
   <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
     <div class="mb-4">
-
-      {% block flashes %}
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-
-              <ul>
-              {% for category, message in messages %}
-                  <li class="{{ category }}">{{ message }}</li>
-              {% endfor %}
-              </ul>
-
-          {% endif %}
-        {% endwith %}
-      {% endblock %}
-
       <h1 class="text-2xl font-bold text-grey-500 text-center">Список дел:</h1>
       <div class="flex mt-4">
         {% include "partials/_form.html" %}

@@ -1,15 +1,14 @@
 from datetime import datetime
 
 from flask import flash, redirect, render_template, request, session, url_for
-from flask_user import roles_required, login_required
 from flask.views import MethodView
 from todo import db
 from todo.app.forms import AddTodoForm, UpdateTodoForm
 from todo.app.models import TodoCard
 from todo.lib.core_views import AbstractView, CoreView
-from todo.lib.utils import get_todo, user_required
+from todo.lib.utils import get_todo
 from werkzeug.utils import cached_property
-
+from flask_login import current_user
 
 class IndexView(CoreView, MethodView):
     """
@@ -37,13 +36,13 @@ class AddTodoView(CoreView, MethodView):
         return AddTodoForm()
 
     def get(self):
-        todo_list = TodoCard.query.order_by(TodoCard.d_create).all()
+        todo_list = TodoCard.query.filter_by(user_id=current_user.id).order_by(TodoCard.d_create).all()
         return render_template('/card.html', form = self.form, todo_list=todo_list)
 
     def post(self):
         form = self.form
         if form.validate_on_submit():
-            new_todo = TodoCard(content=form.todo_content.data, active=True, d_create=datetime.now())
+            new_todo = TodoCard(content=form.todo_content.data, active=True, d_create=datetime.now(), user_id=current_user.id)
             db.session.add(new_todo)
             db.session.commit()
 
