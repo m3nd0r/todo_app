@@ -8,7 +8,7 @@ from todo.auth.blueprints import blueprint as bp2
 from todo.config import Config
 from flask_script import Manager
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='app/static')
 app.config.from_object(Config)
 
 app.register_blueprint(bp1)

@@ -1,58 +1,58 @@
 {% extends "base.html" %}
 
-{% block form %}
-<div>
-  <form action="/add_card" method="post">
-    {{ add_card_form.hidden_tag() }}
-    {{ add_card_form.todo_card_name(class="form-control") }}
-    {{ add_card_form.submit(type="button", class="btn btn-success", size=64) }}
-  </form>
-</div>
-{% endblock %}
-
 {% block content %}
-{% if todo_card_list %}
-  <div class="ui cards">
+
+  {# Добавить новую карточку #}
+  <div class="d-md-flex justify-content-center">
+    <form class="p-2 w-50 input-group mb-3" action="/add_card" method="post">
+      {{ add_card_form.csrf_token }}
+      <input type="text" class="form-control" aria-describedby="button-addon2" style="width: 250px" name="todo_card_name" value="{{ todo_card_name }}">
+      {{ add_card_form.submit(type="button", class="btn btn-success", id="button-addon2") }}
+    </form>
+  </div>
+
+  {% if todo_card_list %}
+  <div class="row row-cols-1 row-cols-md-2 g-4">
     {% for todo_card in todo_card_list %}
-      <div class="card">
-        <h1>{{ todo_card.name.title() or '---'}}</h1>
-          <form action="/add_todo" method="post">
+      <div class="col" style="width: 40%;">
+        <div class="card-body">
+          <h5 class="card-title">{{ todo_card.name.title() or '---'}}</h3>
+
+          {# Добавить новую задачу #}
+          <form class="input-group mb-3" action="/add_todo" method="post">
             {{ add_todo.csrf_token }}
-            {{ add_todo.todo_content(class="form-control", size=32) }}
+            <input type="text" class="form-control" aria-describedby="button-addon2" name="todo_content" value="{{ todo_content }}">
             <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
-            {{ add_todo.submit(type="submit", class="btn btn-success", size=64) }}
+            {{ add_todo.submit(type="submit", class="btn btn-success", id="button-addon2") }}
           </form>
-            {% if todo_card.items %}
-              {% for todo in todo_card.items %}
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-action">
-                  {% if todo.status == 'complete' %}
-                    <a href="/complete/{{ todo.id }}">
-                      {{ todo.content }}
-                    </a>
-                  {% else %}
-                    <a href="/complete/{{ todo.id }}">
-                      {{ todo.content}}
-                    </a>
-                  {% endif %}
-                  <a class="btn btn-outline-primary me-md-2" href="/update/{{ todo.id }}">
-                    Изменить
-                  </a>
-                  <a class="btn btn-outline-danger" href="/delete/{{ todo.id }}">
-                    Удалить
-                  </a>
-                </li>
-              </ul>
-              {% endfor %}
-            {% else %}
-              <p class="text-center">Нет задач</p>
-            {% endif %}
-            <a class="btn btn-danger" href="/delete_card/{{ todo_card.id }}">
-              Удалить карточку
-            </a>
+
+          {# Вывести список задач для этой карточки #}
+          {% if todo_card.items %}
+          {% for todo in todo_card.items %}
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-end align-items-center">
+                {% if todo.status == 'complete' %}
+                  <del><a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
+                {% else %}
+                  <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
+                {% endif %}
+                {# <div class="d-flex "> #}
+                  <a class="p-2" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
+                  <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
+                {# </div> #}
+              </li>
+            </ul>
+          {% endfor %}
+          {% else %}
+            <p class="text-center">Нет задач</p>
+          {% endif %}
+          <div class="card-footer">
+            <a class="btn btn-danger" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
+          </div>
+        </div>
       </div>
     {% endfor %}
   </div>
-{% endif %}
+  {% endif %}
 
 {% endblock content %}
