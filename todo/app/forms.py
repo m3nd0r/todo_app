@@ -1,6 +1,7 @@
 import wtforms
 from wtforms import validators
 from flask_wtf import FlaskForm
+from todo.app.models import Todo
 
 
 class AddTodoCardForm(FlaskForm):
@@ -17,6 +18,7 @@ class AddTodoForm(FlaskForm):
     """
     todo_content = wtforms.StringField('Название задачи', validators=[validators.Required(message=('Это обязательное поле'))],
                               render_kw={'placeholder': 'Что нужно сделать?'})
+    todo_card_id = wtforms.HiddenField()
     submit = wtforms.SubmitField('Добавить')
 
 

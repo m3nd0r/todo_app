@@ -1,60 +1,58 @@
 {% extends "base.html" %}
 
 {% block form %}
-<div class="h-100 w-full flex items-center justify-center font-sans">
-  <form action="/add_card" method="post" class="flex mt-4">
+<div>
+  <form action="/add_card" method="post">
     {{ add_card_form.hidden_tag() }}
-    {{ add_card_form.todo_card_name(class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker") }}
-    {{ add_card_form.submit(class="flex-no-shrink p-2 border-2 rounded text-green-600 border-green-600 hover:text-white hover:bg-green-600", size=64) }}
+    {{ add_card_form.todo_card_name(class="form-control") }}
+    {{ add_card_form.submit(type="button", class="btn btn-success", size=64) }}
   </form>
 </div>
 {% endblock %}
 
 {% block content %}
 {% if todo_card_list %}
-  {% for todo_card in todo_card_list %}
-    <div class="h-100 w-full flex items-center justify-center font-sans">
-      <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
-        <div class="mb-4">
-          <h1 class="text-2xl font-bold text-grey-500 text-center">{{ todo_card.name.title() or '---'}}</h1>
-          <div class="flex mt-4">
-            {% include "partials/_form.html" %}
-          </div>
-        </div>
-        <div>
-          {% if todo_card.items %}
-            {% for todo in todo_card.items %}
-            <div class="flex mb-4 items-center">
-              <p class="w-full text-grey-darkest">
-                {% if todo.status == 'complete' %}
-                <a class="w-full text-grey-darkest line-through" href="/complete/{{ todo.id }}">
-                  {{ todo.content }}
-                </a>
-                {% else %}
-                <a class="w-full text-grey-darkest" href="/complete/{{ todo.id }}">
-                  {{ todo.content}}
-                </a>
-                {% endif %}
-              </p>
-              <button >
-                <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-blue-400 border-blue-400 hover:text-white hover:bg-blue-400" href="/update/{{ todo.id }}">
-                  Изменить
-                </a>
-              </button>
-              <button>
-                <a class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500" href="/delete/{{ todo.id }}">
-                  Удалить
-                </a>
-              </button>
-            </div>
-            {% endfor %}
-          {% else %}
-            <p class="text-center">Нет задач</p>
-          {% endif %}
-        </div>
+  <div class="ui cards">
+    {% for todo_card in todo_card_list %}
+      <div class="card">
+        <h1>{{ todo_card.name.title() or '---'}}</h1>
+          <form action="/add_todo" method="post">
+            {{ add_todo.csrf_token }}
+            {{ add_todo.todo_content(class="form-control", size=32) }}
+            <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
+            {{ add_todo.submit(type="submit", class="btn btn-success", size=64) }}
+          </form>
+            {% if todo_card.items %}
+              {% for todo in todo_card.items %}
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-action">
+                  {% if todo.status == 'complete' %}
+                    <a href="/complete/{{ todo.id }}">
+                      {{ todo.content }}
+                    </a>
+                  {% else %}
+                    <a href="/complete/{{ todo.id }}">
+                      {{ todo.content}}
+                    </a>
+                  {% endif %}
+                  <a class="btn btn-outline-primary me-md-2" href="/update/{{ todo.id }}">
+                    Изменить
+                  </a>
+                  <a class="btn btn-outline-danger" href="/delete/{{ todo.id }}">
+                    Удалить
+                  </a>
+                </li>
+              </ul>
+              {% endfor %}
+            {% else %}
+              <p class="text-center">Нет задач</p>
+            {% endif %}
+            <a class="btn btn-danger" href="/delete_card/{{ todo_card.id }}">
+              Удалить карточку
+            </a>
       </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 {% endif %}
 
 {% endblock content %}

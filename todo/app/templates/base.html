@@ -2,10 +2,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@2.0/dist/tailwind.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+    </script>
+    <script src="semantic/dist/semantic.min.js"></script>
 </head>
 <body>
-    <div class="w-full font-sans" style="text-align: center;">
+    <div style="text-align: center;">
         {% if current_user %}
             <a href="{{ url_for('todo.index') }}">Главная</a>
 
@@ -25,7 +31,7 @@
     </div>
     {% block form %}
     {% endblock %}
-    <div class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+    <div style="background: #edf2f7;">
 
         {% block content %}
         {% endblock %}

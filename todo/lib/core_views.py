@@ -38,7 +38,3 @@ class CoreView(object):
     @property
     def user(self):
         return get_current_user()
-
-    @property
-    def todo(self):
-        return

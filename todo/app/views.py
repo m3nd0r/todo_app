@@ -6,7 +6,7 @@ from todo import db
 from todo.app.forms import AddTodoCardForm, AddTodoForm, UpdateTodoForm
 from todo.app.models import Todo, TodoCard
 from todo.lib.core_views import AbstractView, CoreView
-from todo.lib.utils import get_todo
+from todo.lib.utils import get_todo, get_todo_card
 from werkzeug.utils import cached_property
 from flask_login import current_user
 
@@ -45,7 +45,10 @@ class AddTodoCardView(CoreView, MethodView):
     def post(self):
         form = self.form
         if form.validate_on_submit():
-            new_todo_card = TodoCard(user_id=current_user.id, name=form.todo_card_name.data)
+            new_todo_card = TodoCard(
+                user_id=current_user.id,
+                name=form.todo_card_name.data
+            )
             db.session.add(new_todo_card)
             db.session.commit()
 
@@ -71,7 +74,9 @@ class AddTodoView(CoreView, MethodView):
                 content=form.todo_content.data,
                 active=True,
                 d_create=datetime.now(),
-                user_id=current_user.id)
+                user_id=current_user.id,
+                todo_card_id=form.todo_card_id.data
+            )
             db.session.add(new_todo)
             db.session.commit()
 
@@ -130,6 +135,18 @@ class CompleteTodoView(CoreView, MethodView):
             db.session.commit()
         else:
             flash(f'Задачи №{todo_id} не существует!', 'warning')
+
+        return redirect(url_for('todo.card'))
+
+
+class DeleteTodoCardView(CoreView, MethodView):
+    """
+    Удаление одной задачи
+    """
+    def get(self, todo_card_id):
+        todo_card = get_todo_card(todo_card_id)
+        db.session.delete(todo_card)
+        db.session.commit()
 
         return redirect(url_for('todo.card'))
 

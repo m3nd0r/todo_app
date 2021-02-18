@@ -1,10 +1,11 @@
 
-from flask import g, redirect, url_for
-from todo.auth.models import User
-from todo.app.models import Todo
-from flask_login import current_user
-
 from functools import wraps
+
+from flask import g, redirect, url_for
+from flask_login import current_user
+from todo.app.models import Todo, TodoCard
+from todo.auth.models import User
+
 
 def get_current_user(default_email=None):
     """
@@ -25,6 +26,14 @@ def get_todo(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     if todo:
         return todo
+
+def get_todo_card(todo_card_id):
+    """
+    Получить объект todo
+    """
+    todo_card = TodoCard.query.filter_by(id=todo_card_id).first()
+    if todo_card:
+        return todo_card
 
 def user_required(f):
     @wraps(f)
