@@ -16,7 +16,7 @@
     {% for todo_card in todo_card_list %}
       <div class="col" style="width: 40%;">
         <div class="card-body">
-          <h5 class="card-title">{{ todo_card.name.title() or '---'}}</h3>
+          <h5 class="card-title">{{ todo_card.name.title() or '---'}}</h5>
 
           {# Добавить новую задачу #}
           <form class="input-group mb-3" action="/add_todo" method="post">
@@ -32,7 +32,7 @@
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-end align-items-center">
                 {% if todo.status == 'complete' %}
-                  <del><a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
+                  <del class="me-auto"><a style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
                 {% else %}
                   <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
                 {% endif %}

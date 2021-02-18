@@ -25,7 +25,6 @@ class CardView(CoreView, MethodView):
     def get(self):
         add_card_form = AddTodoCardForm()
         add_todo = AddTodoForm()
-        # todo_list = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.d_create).all()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
         return render_template('/card.html', add_card_form=add_card_form, add_todo=add_todo, todo_card_list=todo_card_list)
 
