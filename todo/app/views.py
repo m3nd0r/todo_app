@@ -20,18 +20,24 @@ class IndexView(CoreView, MethodView):
 
 class CardView(CoreView, MethodView):
     """
-    Страница с отображением всех карточек с делами
+    Страница с отображением всех карточек
     """
     def get(self):
         add_card_form = AddTodoCardForm()
         add_todo = AddTodoForm()
+        update_form = UpdateTodoForm()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
-        return render_template('/card.html', add_card_form=add_card_form, add_todo=add_todo, todo_card_list=todo_card_list)
+        return render_template(
+            '/card.html',
+            add_card_form=add_card_form,
+            add_todo=add_todo,
+            update_form=update_form,
+            todo_card_list=todo_card_list)
 
 
 class AddTodoCardView(CoreView, MethodView):
     """
-    Добавление карточки с задачами
+    Добавление карточки
     """
     @cached_property
     def form(self):

@@ -28,4 +28,5 @@ class UpdateTodoForm(FlaskForm):
     """
     todo_content = wtforms.StringField('Название задачи', validators=[validators.Required(message=('Это обязательное поле'))],
                               render_kw={'placeholder': 'Что нужно сделать?'})
+    todo_card_id = wtforms.HiddenField()
     submit = wtforms.SubmitField('Изменить')
