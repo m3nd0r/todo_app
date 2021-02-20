@@ -1,8 +1,50 @@
 
 {% extends "base.html" %}
 
+{% block style%}
+<style>
+
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+
+    div.login_body {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center
+    }
+
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1>Sign In</h1>
+<div class="login_body" >
+    <main class="form-signin">
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <h1 class="h3 mb-3 fw-normal">Вход</h1>
+            <input type="email" name="email" class="form-control" placeholder="Email address" value="{{ email }}" required autofocus>
+            <input type="password" name="password" class="form-control" placeholder="Password" value="{{ password }}" required>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+            </div>
+
+            {{ form.submit(type="submit", class="w-100 btn btn-lg btn-primary") }}
+        </form>
+    </main>
+</div>
+{% endblock %}
+
+
+    {# <h1>Sign In</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
@@ -26,5 +68,4 @@
         <p>Нет аккаунта?<br>
         <a href="{{ url_for('auth.register') }}">Нажми сюда,</a> чтобы зарегистрироваться</p>
         <button type="submit">{{('Войти')}}</button>
-    </form>
-{% endblock %}
+    </form> #}

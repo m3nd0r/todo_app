@@ -23,5 +23,5 @@ blueprint.add_url_rule('/complete/<int:todo_id>', view_func=views.CompleteTodoVi
 blueprint.add_url_rule('/delete/<int:todo_id>', view_func=views.DeleteTodoView.as_view('delete'))
 blueprint.add_url_rule('/update/<int:todo_id>', view_func=views.ModifyTodoView.as_view('update'))
 
-blueprint.add_url_rule('/profile', view_func=views.ProfileView.as_view('profile'))
-blueprint.add_url_rule('/character', view_func=views.CharacterView.as_view('character'))
+blueprint.add_url_rule('/profile', view_func=user_required(views.ProfileView.as_view('profile')))
+blueprint.add_url_rule('/character', view_func=user_required(views.CharacterView.as_view('character')))
