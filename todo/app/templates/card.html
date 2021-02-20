@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="container">
   {# Добавить новую карточку #}
   <div class="d-md-flex justify-content-center">
     <form class="p-2 w-50 input-group mb-3" action="/add_card" method="post">
@@ -55,6 +55,6 @@
     {% endfor %}
   </div>
   {% endif %}
-
+</div>
 
 {% endblock content %}
