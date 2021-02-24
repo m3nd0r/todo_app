@@ -2,33 +2,17 @@
 
 {% block content %}
 <div class="container">
-  {# Добавить новую карточку #}
-  <div class="d-md-flex justify-content-center">
-    <form class="p-2 w-50 input-group mb-3" action="/add_card" method="post">
-      {{ add_card_form.csrf_token }}
-      <input type="text" class="form-control" aria-describedby="button-addon2" style="width: 250px" name="todo_card_name" value="{{ todo_card_name }}">
-      {{ add_card_form.submit(type="button", class="btn btn-success", id="button-addon2") }}
-    </form>
-  </div>
 
   {% if todo_card_list %}
   <div class="row row-cols-1 row-cols-md-2 g-4">
     {% for todo_card in todo_card_list %}
-    {% if todo_card.active %}
+    {% if not todo_card.active %}
       <div class="col" style="width: 40%;">
         <div class="card-body">
           <h5 class="card-title">{{ todo_card.name.title() or '---'}}</h5>
 
-          {# Добавить новую задачу #}
-          <form class="input-group mb-3" action="/add_todo" method="post">
-            {{ add_todo.csrf_token }}
-            <input type="text" class="form-control" aria-describedby="button-addon2" name="todo_content" value="{{ todo_content }}">
-            <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
-            {{ add_todo.submit(type="submit", class="btn btn-success", id="button-addon2") }}
-          </form>
-
           {# Вывести список задач для этой карточки #}
-          {% if todo_card.items %}
+          {% if not todo_card.items %}
           {% for todo in todo_card.items %}
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-end align-items-center">

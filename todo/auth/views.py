@@ -1,12 +1,14 @@
-from flask import flash, redirect, render_template, session, url_for, request
+from datetime import datetime
+
+from flask import flash, redirect, render_template, request, session, url_for
+from flask.views import MethodView
 from flask_login import current_user, login_user, logout_user
 from todo import db
 from todo.lib.core_views import AbstractView, CoreView
 from werkzeug.utils import cached_property
-from datetime import datetime
+
 from .forms import LoginForm, RegistrationForm
 from .models import User
-from flask.views import MethodView
 
 
 class LoginView(CoreView, MethodView):
@@ -60,6 +62,8 @@ class RegistrationView(CoreView, MethodView):
         if form.validate_on_submit():
 
             user = User(email=form.email.data, d_create=datetime.now())
+
+            user.validate_email(form.email)
             user.set_password(form.password.data)
 
             db.session.add(user)
@@ -73,7 +77,6 @@ class RegistrationView(CoreView, MethodView):
 
 class LogoutView(CoreView, MethodView):
     """ Выйти из системы. """
-
     def get(self):
         logout_user()
 

@@ -24,15 +24,29 @@
             {% else %}
                 <a href="{{ url_for('todo.profile') }}">Профиль</a>
                 <a href="{{ url_for('todo.card') }}">Карточка</a>
+                <a href="{{ url_for('todo.archive') }}">Архив</a>
 
-                {% if current_user.characters %}
-                    <a href="{{ url_for('todo.character') }}">Персонаж</a>
+
+                {% if current_user.character %}
+                    <a href="{{ url_for('char.character') }}">Персонаж</a>
+                {% else %}
+                    <a href="{{ url_for('char.create_character') }}">Создать персонажа</a>
                 {% endif %}
 
                 <a href="{{ url_for('auth.logout') }}">Выйти</a>
             {% endif %}
         {% endif %}
     </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
         {% block content %}
         {% endblock %}
 

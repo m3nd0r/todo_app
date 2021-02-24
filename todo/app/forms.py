@@ -1,7 +1,8 @@
 import wtforms
-from wtforms import validators
 from flask_wtf import FlaskForm
 from todo.app.models import Todo
+from wtforms import validators
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 
 class AddTodoCardForm(FlaskForm):

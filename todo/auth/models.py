@@ -13,8 +13,10 @@ class User(ProjectUserMixin, db.Model):
     last_name = db.Column(db.String(250))
     active = db.Column(db.Boolean, default=True)
     d_create = db.Column(db.DateTime(timezone=True))
+
     todo_card = db.relationship('TodoCard', backref='user', lazy='dynamic')
     todo = db.relationship('Todo', backref='user', lazy='dynamic')
+    character_id = db.Column(db.Integer, db.ForeignKey('todo_character.id'))
 
     def __str__(self):
         return f'<User {self.id} {self.email}>' or '---'

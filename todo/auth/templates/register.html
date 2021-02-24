@@ -27,8 +27,19 @@
             {{ form.hidden_tag() }}
             <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
             <input type="email" name="email" class="form-control" placeholder="Email" value="{{ email }}" required autofocus>
+                {% for error in form.email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
             <input type="password" name="password" class="form-control" style="margin-top: 15px" placeholder="Пароль" value="{{ password }}" required>
+                {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
             <input type="password" name="password2" class="form-control" placeholder="Пароль повторно" value="{{ password2 }}" required>
+                {% for error in form.password2.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
 
             {{ form.submit(type="submit", class="w-100 btn btn-lg btn-primary", style="margin-top: 30px") }}
         </form>

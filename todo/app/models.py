@@ -26,6 +26,7 @@ class TodoCard(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), index=True)
+    active = db.Column(db.Boolean, default=True, index=True)
     status = db.Column(db.String(60), index=True, default='draft')
     todo = db.relationship('Todo', backref='todo_card', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('todo_user.id'))

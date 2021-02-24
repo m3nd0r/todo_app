@@ -1,0 +1,22 @@
+
+<div class="modal fade" id="createCharacterModal" tabindex="-1" aria-labelledby="createCharacterModal" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    <div class="d-flex flex-row-reverse p-2">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body" style="padding-bottom: 34px;">
+        <form class="input mb-3" action="/create_character" method="post">
+            {{ form.csrf_token }}
+
+            {{ form.name(class="form-control") }}
+            {{ form.gender(class="form-select") }}
+            {{ form.race(class="form-select") }}
+            {{ form.profession(class="form-select") }}
+
+            {{ form.submit(type="submit", class="btn btn-success") }}
+        </form>
+    </div>
+    </div>
+</div>
+</div>

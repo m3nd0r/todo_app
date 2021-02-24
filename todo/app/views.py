@@ -2,13 +2,14 @@ from datetime import datetime
 
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import MethodView
+from flask_login import current_user
 from todo import db
 from todo.app.forms import AddTodoCardForm, AddTodoForm, UpdateTodoForm
 from todo.app.models import Todo, TodoCard
 from todo.lib.core_views import AbstractView, CoreView
 from todo.lib.utils import get_todo, get_todo_card
 from werkzeug.utils import cached_property
-from flask_login import current_user
+
 
 class IndexView(CoreView, MethodView):
     """
@@ -30,6 +31,20 @@ class CardView(CoreView, MethodView):
         return render_template(
             '/card.html',
             add_card_form=add_card_form,
+            add_todo=add_todo,
+            update_form=update_form,
+            todo_card_list=todo_card_list)
+
+class ArchiveView(CoreView, MethodView):
+    """
+    Страница с отображением всех карточек
+    """
+    def get(self):
+        add_todo = AddTodoForm()
+        update_form = UpdateTodoForm()
+        todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
+        return render_template(
+            '/archive.html',
             add_todo=add_todo,
             update_form=update_form,
             todo_card_list=todo_card_list)
@@ -94,7 +109,8 @@ class DeleteTodoView(CoreView, MethodView):
     """
     def get(self, todo_id):
         todo = get_todo(todo_id)
-        db.session.delete(todo)
+        todo.active = False
+        db.session.add(todo)
         db.session.commit()
 
         return redirect(url_for('todo.card'))
@@ -150,7 +166,8 @@ class DeleteTodoCardView(CoreView, MethodView):
     """
     def get(self, todo_card_id):
         todo_card = get_todo_card(todo_card_id)
-        db.session.delete(todo_card)
+        todo_card.active = False
+        db.session.add(todo_card)
         db.session.commit()
 
         return redirect(url_for('todo.card'))
@@ -162,11 +179,3 @@ class ProfileView(CoreView, MethodView):
     """
     def get(self):
         return render_template('/profile.html')
-
-
-class CharacterView(CoreView, MethodView):
-    """
-    Просмотр персонажа пользователя
-    """
-    def get(self):
-        return render_template('/character.html')
