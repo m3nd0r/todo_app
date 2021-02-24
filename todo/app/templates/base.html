@@ -14,55 +14,8 @@
 
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <div class="header__body">
-                    <div class="header__burger">
-                        <span></span>
-                    </div>
-                    <nav class="header__menu">
-                        {% if current_user %}
-                        <ul class="header__list">
-                            <li>
-                                <a href="{{ url_for('todo.index') }}" class="header__link">Главная</a>
-                            </li>
-                            {% if current_user.is_anonymous %}
-                                <li>
-                                    <a href="{{ url_for('auth.login') }}" class="header__link">Войти</a>
-                                </li>
-                            {% else %}
-                                <li>
-                                    <a href="{{ url_for('todo.profile') }}" class="header__link">Профиль</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url_for('todo.card') }}" class="header__link">Карточка</a>
-                                </li>
-                                {% if current_user.characters %}
-                                    <li>
-                                        <a href="{{ url_for('todo.character') }}" class="header__link">Персонаж</a>
-                                    </li>
-                                {% endif %}
-                                <li>
-                                    <a href="{{ url_for('auth.logout') }}" class="header__link">Выйти</a>
-                                </li>
-                            {% endif %}
-                        {% endif %}
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div class="content">
-            <div class="container">
-                <div class="content__text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, explicabo expedita ratione voluptates, corrupti hic quis fugit qui quod vel deserunt ab velit fugiat dolor autem est. Ullam minima ex beatae consequuntur officia ipsum molestiae, nesciunt numquam? Dicta deleniti, architecto autem neque ex sit molestias ullam ab itaque labore, sed numquam! Recusandae architecto ea eum fugiat, provident fuga consectetur reprehenderit distinctio consequatur saepe, doloremque natus neque, reiciendis officiis sit alias quos! Quidem laborum illo velit, aspernatur provident rem hic. Voluptas sapiente eveniet perspiciatis? Velit similique cumque quos voluptatem unde sed at harum nostrum ullam magni totam expedita eius laudantium minus voluptate vitae eveniet iure eligendi perferendis aperiam, tenetur quia animi? Enim pariatur totam cupiditate similique nobis fugiat aliquid nostrum beatae aperiam harum molestias expedita dolorum repudiandae rerum libero adipisci quos recusandae deleniti, debitis officia doloremque quasi quidem. Repudiandae, provident dicta beatae natus, alias rerum illo sapiente at eveniet distinctio enim magni odio dolores consequatur, quisquam deserunt ab ex sit! Nostrum magni numquam dolorum similique sapiente hic vel itaque voluptate animi fuga eius cumque quos sed doloribus ab, enim repellendus nam dolorem recusandae dolores dignissimos alias aliquid. Officia similique eum ullam, delectus saepe neque, reprehenderit eius rerum voluptate atque consequatur voluptatibus nobis dolor esse tempore itaque quis id at repellat temporibus blanditiis, corporis accusamus. Eos at, tempore numquam cupiditate ex recusandae sequi ea minus assumenda quod ullam maxime nihil neque quam perspiciatis. Autem alias quae voluptatum! Alias sit facilis minima nisi quisquam porro ipsum reiciendis explicabo aliquam, nesciunt voluptatum magnam eius dignissimos? Praesentium assumenda aperiam blanditiis unde porro molestias atque repellat, sit, neque aliquam delectus similique placeat ratione tempore explicabo veniam possimus voluptate aspernatur facilis earum eaque magnam cum. Error, amet temporibus quidem recusandae veniam sint nisi impedit, alias quasi quibusdam blanditiis eum explicabo sunt labore natus architecto maxime laboriosam ex voluptatibus fuga quos tenetur quae? Porro incidunt sunt cupiditate illo id, alias sint nihil tempora optio praesentium necessitatibus ipsa voluptatibus facere non corrupti error, velit tempore in odio perspiciatis deserunt maxime saepe, quo iste. Dignissimos ea quaerat numquam dolore itaque fugiat quasi, inventore odit, quo architecto quas deleniti non quam iure ad. Ratione ad accusamus vitae? Atque architecto distinctio cupiditate perferendis id a nisi dolorum sapiente at nostrum magni repellendus esse, unde accusantium nobis enim voluptate? Commodi, officiis quasi, assumenda id explicabo voluptates fugiat necessitatibus unde atque repellendus quidem error doloribus doloremque perferendis voluptatem ratione obcaecati illum hic distinctio vero quia. Velit, necessitatibus quaerat sint sapiente aspernatur est nemo dolorum dolores dicta, maxime eum earum minus debitis maiores hic id quasi quam numquam molestiae at vitae ducimus explicabo odit. Laborum eligendi saepe expedita delectus similique natus, maiores odit voluptates harum corrupti placeat molestias? Laborum aliquam libero similique odit, aliquid deleniti est corporis, dicta omnis facilis ea! Laborum culpa impedit, nobis porro voluptate dolore iste vero quo, obcaecati unde recusandae magnam doloremque, aperiam tempora maiores temporibus. Illum laboriosam consequuntur ut nam aut eveniet repellat magni praesentium, ab temporibus voluptatem sint et sunt! Iure iusto accusamus, consequatur et modi veniam beatae ipsum!
-                </div>
-            </div>
-        </div>
-    </div>
 
-    {# <div style="text-align: center;">
+    <div style="text-align: center;">
         {% if current_user %}
             <a href="{{ url_for('todo.index') }}">Главная</a>
 
@@ -81,11 +34,10 @@
         {% endif %}
     </div>
         {% block content %}
-        {% endblock %} #}
+        {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-    <script src="javascript/script.js"></script>
 
 
     {% block scripts %}
