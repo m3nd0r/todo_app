@@ -32,6 +32,11 @@ class ProjectUserMixin(UserMixin):
         if email is not None:
             raise ValidationError('Такой e-mail уже зарегистрирован.')
 
+
+class CharacterMixin():
+    """
+    Вынесу сюда всё, связанное с персонажем
+    """
     @cached_property
     def character(self):
         return Character.query.filter_by(user_id=self.id).first()

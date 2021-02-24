@@ -1,8 +1,8 @@
-from .mixin import ProjectUserMixin
+from .mixin import ProjectUserMixin, CharacterMixin
 from todo import db
 
 
-class User(ProjectUserMixin, db.Model):
+class User(ProjectUserMixin, CharacterMixin, db.Model):
 
     __tablename__ = 'todo_user'
 
