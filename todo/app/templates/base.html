@@ -8,7 +8,11 @@
         rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
+    <style>
+        ul.list-group {
+            padding-top: 10px;
+        }
+    </style>
     {% block style %}
     {% endblock %}
 
@@ -16,39 +20,36 @@
 <body>
 
     <div style="text-align: center;">
-        {% if current_user %}
-            <a href="{{ url_for('todo.index') }}">Главная</a>
+        <a href="{{ url_for('todo.index') }}">Главная</a>
 
-            {% if current_user.is_anonymous %}
-                <a href="{{ url_for('auth.login') }}">Войти</a>
+        {% if current_user.is_anonymous %}
+            <a href="{{ url_for('auth.login') }}">Войти</a>
+        {% else %}
+            <a href="{{ url_for('todo.profile') }}">Профиль</a>
+            {% if current_user.character %}
+                <a href="{{ url_for('char.character') }}">Персонаж</a>
             {% else %}
-                <a href="{{ url_for('todo.profile') }}">Профиль</a>
-                <a href="{{ url_for('todo.card') }}">Карточка</a>
-                <a href="{{ url_for('todo.archive') }}">Архив</a>
-
-
-                {% if current_user.character %}
-                    <a href="{{ url_for('char.character') }}">Персонаж</a>
-                {% else %}
-                    <a href="{{ url_for('char.create_character') }}">Создать персонажа</a>
-                {% endif %}
-
-                <a href="{{ url_for('auth.logout') }}">Выйти</a>
+                <a href="{{ url_for('char.create_character') }}">Создать персонажа</a>
             {% endif %}
-        {% endif %}
-    </div>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    {% endwith %}
 
-        {% block content %}
-        {% endblock %}
+            <a href="{{ url_for('todo.card') }}">Карточки</a>
+
+            <a href="{{ url_for('todo.archive') }}">Архив</a>
+            <a href="{{ url_for('auth.logout') }}">Выйти</a>
+        {% endif %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="list-group">
+                {% for message in messages %}
+                    <li class="list-group-item list-group-item-primary">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
