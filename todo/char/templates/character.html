@@ -1,29 +1,10 @@
 {% extends "base.html" %}
 
-{% block style%}
-<style>
-    .form-signin {
-        width: 100%;
-        max-width: 330px;
-        padding: 15px;
-        margin: auto;
-    }
-
-    div.login_body {
-        display: flex;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        text-align: center
-    }
-</style>
-{% endblock %}
-
 {% block content %}
     <div class="login_body">
         <main class="form-signin">
             <h3>Персонаж</h3>
-            {% if not current_user.character_id %}
+            {% if not current_user.character %}
                 <div style="padding-top: 10px; padding-bottom: 10px">Кажется, у вас ещё нет Персонажа!
                     <a data-bs-toggle="modal" data-bs-target="#createCharacterModal" href="{{ url_for('char.create_character') }}">
                     Нажми сюда, </a>чтобы создать его.

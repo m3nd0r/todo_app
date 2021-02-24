@@ -10,7 +10,11 @@ from todo.char.blueprints import blueprint as bp3
 from todo.config import Config
 from flask_script import Manager
 
-app = Flask(__name__, static_folder='app/static')
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='lib/static',
+    )
 app.config.from_object(Config)
 
 app.register_blueprint(bp1)
