@@ -28,6 +28,7 @@ class CardView(CoreView, MethodView):
         add_todo = AddTodoForm()
         update_form = UpdateTodoForm()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
+
         return render_template(
             '/card.html',
             add_card_form=add_card_form,
@@ -35,14 +36,16 @@ class CardView(CoreView, MethodView):
             update_form=update_form,
             todo_card_list=todo_card_list)
 
+
 class ArchiveView(CoreView, MethodView):
     """
-    Страница с отображением всех карточек
+    Страница с отображением архива карточек
     """
     def get(self):
         add_todo = AddTodoForm()
         update_form = UpdateTodoForm()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
+
         return render_template(
             '/archive.html',
             add_todo=add_todo,
@@ -125,11 +128,8 @@ class ModifyTodoView(CoreView, MethodView):
         """ Экземпляр формы модификации задачи """
         return UpdateTodoForm()
 
-    def get(self, todo_id):
-        todo = get_todo(todo_id)
-        return render_template('/update.html', form=self.form, todo=todo)
-
     def post(self, todo_id):
+        print(todo_id)
         todo = get_todo(todo_id)
         form = self.form
         if form.validate_on_submit():

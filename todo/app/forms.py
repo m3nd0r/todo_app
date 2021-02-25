@@ -7,7 +7,7 @@ from wtforms_sqlalchemy.fields import QuerySelectField
 
 class AddTodoCardForm(FlaskForm):
     """
-    Форма добавления новой задачи
+    Форма добавления новой карточки
     """
     todo_card_name = wtforms.StringField('Название карточки', validators=[validators.Required(message=('Это обязательное поле'))])
     submit = wtforms.SubmitField('Создать')
@@ -28,6 +28,9 @@ class UpdateTodoForm(FlaskForm):
     Форма обновления/модификации задачи
     """
     todo_content = wtforms.StringField('Название задачи', validators=[validators.Required(message=('Это обязательное поле'))],
-                              render_kw={'placeholder': 'Что нужно сделать?'})
+                              render_kw={
+                                  'placeholder': 'Новое значение',
+                                  'aria-describedby': 'button-addon2',
+                                  })
     todo_card_id = wtforms.HiddenField()
-    submit = wtforms.SubmitField('Изменить')
+    submit = wtforms.SubmitField('Изменить', render_kw={'id': 'button-addon2'})

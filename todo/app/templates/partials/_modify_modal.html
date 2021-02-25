@@ -1,18 +1,19 @@
 
-<div class="modal fade" id="modifyCardModal" tabindex="-1" aria-labelledby="modifyCardModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    <div class="d-flex flex-row-reverse p-2">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="modifyCardModal{{todo.id}}" tabindex="-1" aria-labelledby="modifyCardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="d-flex flex-row-reverse p-2">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding-bottom: 34px;">
+            <form class="input-group mb-3" action="/update/{{ todo.id }}" method="post">
+                {{ update_form.csrf_token }}
+                {{ update_form.todo_content(class="form-control")}}
+                {# <input type="text" class="form-control" name="todo_content" value="{{ todo_content }}"> #}
+                <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
+                {{ update_form.submit(type="submit", class="btn btn-success") }}
+            </form>
+        </div>
+        </div>
     </div>
-    <div class="modal-body" style="padding-bottom: 34px;">
-        <form class="input-group mb-3" action="/update/{{ todo.id }}" method="post">
-            {{ update_form.csrf_token }}
-            <input type="text" class="form-control" aria-describedby="button-addon2" name="todo_content" value="{{ todo_content }}" placeholder="Название задачи">
-            <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
-            {{ update_form.submit(type="submit", class="btn btn-success", id="button-addon2") }}
-        </form>
-    </div>
-    </div>
-</div>
 </div>
