@@ -4,43 +4,50 @@
 <div class="container">
 
   {% if todo_card_list %}
-  <div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="d-flex justify-content-center row p-5">
     {% for todo_card in todo_card_list %}
     {% if not todo_card.active %}
-      <div class="col" style="width: 40%;">
-        <div class="card-body">
-          <h5 class="card-title">
-              <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
-                {{ todo_card.name.title() or '---'}}
-              </a>
-                {% include "partials/_renameCard_modal.html" %}
-            </h5>
+     <div class="col-sm-6 mb-4" style="width: 40%;">
+        <a class="d-flex justify-content-end" data-bs-toggle="collapse" href="#collapseCard{{ todo_card.id }}" role="button" aria-expanded="true" aria-controls="collapseCard">
+          <i class="bi bi-caret-down-fill"></i>
+        </a>
+        <div class="collapse show" id="collapseCard{{ todo_card.id }}">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                  <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
+                    {{ todo_card.name.title() or '---'}}
+                  </a>
+                    {% include "partials/_renameCard_modal.html" %}
+                </h5>
 
-          {# Вывести список задач для этой карточки #}
-          {% if todo_card.items %}
-          {% for todo in todo_card.items %}
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-end align-items-center">
-                {% if todo.status == 'complete' %}
-                  <del class="me-auto"><a style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
-                {% else %}
-                  <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
-                {% endif %}
-                {# <div class="d-flex "> #}
-                  <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{ todo.id }}" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
-                  <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
-                {# </div> #}
-              </li>
-            </ul>
-            {% include "partials/_modify_modal.html" %}
-          {% endfor %}
-          {% else %}
-            <p class="text-center">Нет задач</p>
-          {% endif %}
-          <div class="card-footer text-center">
-            <div class="btn-group" role="group">
-              <a class="btn btn-danger w-35 btn" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
-              <a class="btn btn-success w-35 btn" href="/delete_card/{{ todo_card.id }}">Восстановить карточку</a>
+              {# Вывести список задач для этой карточки #}
+              {% if todo_card.items %}
+              {% for todo in todo_card.items %}
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-end align-items-center">
+                    {% if todo.status == 'complete' %}
+                      <del class="me-auto"><a style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
+                    {% else %}
+                      <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
+                    {% endif %}
+                    {# <div class="d-flex "> #}
+                      <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{ todo.id }}" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
+                      <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
+                    {# </div> #}
+                  </li>
+                </ul>
+                {% include "partials/_modify_modal.html" %}
+              {% endfor %}
+              {% else %}
+                <p class="text-center">Нет задач</p>
+              {% endif %}
+              <div class="card-footer text-center">
+                <div class="btn-group" role="group">
+                  <a class="btn btn-danger w-35 btn" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
+                  <a class="btn btn-success w-35 btn" href="/delete_card/{{ todo_card.id }}">Восстановить карточку</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
