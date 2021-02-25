@@ -17,7 +17,12 @@
     {% if todo_card.active %}
       <div class="col" style="width: 40%;">
         <div class="card-body">
-          <h5 class="card-title">{{ todo_card.name.title() or '---'}}</h5>
+          <h5 class="card-title">
+            <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
+              {{ todo_card.name.title() or '---'}}
+            </a>
+              {% include "partials/_renameCard_modal.html" %}
+          </h5>
 
           {# Добавить новую задачу #}
           <form class="input-group mb-3" action="/add_todo" method="post">

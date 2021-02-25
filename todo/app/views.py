@@ -4,7 +4,7 @@ from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from todo import db
-from todo.app.forms import AddTodoCardForm, AddTodoForm, UpdateTodoForm
+from todo.app.forms import AddTodoCardForm, AddTodoForm, UpdateTodoForm, RenameCardForm
 from todo.app.models import Todo, TodoCard
 from todo.lib.core_views import AbstractView, CoreView
 from todo.lib.utils import get_todo, get_todo_card
@@ -27,6 +27,7 @@ class CardView(CoreView, MethodView):
         add_card_form = AddTodoCardForm()
         add_todo = AddTodoForm()
         update_form = UpdateTodoForm()
+        rename_form = RenameCardForm()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
 
         return render_template(
@@ -34,6 +35,7 @@ class CardView(CoreView, MethodView):
             add_card_form=add_card_form,
             add_todo=add_todo,
             update_form=update_form,
+            rename_form=rename_form,
             todo_card_list=todo_card_list)
 
 
@@ -129,12 +131,31 @@ class ModifyTodoView(CoreView, MethodView):
         return UpdateTodoForm()
 
     def post(self, todo_id):
-        print(todo_id)
         todo = get_todo(todo_id)
         form = self.form
         if form.validate_on_submit():
             todo.content = form.todo_content.data
             db.session.add(todo)
+            db.session.commit()
+
+            return redirect(url_for('todo.card'))
+
+
+class RenameCardView(CoreView, MethodView):
+    """
+    Переименование карточки
+    """
+    @cached_property
+    def form(self):
+        """ Экземпляр формы переименования """
+        return RenameCardForm()
+
+    def post(self, todo_card_id):
+        todo_card = get_todo_card(todo_card_id)
+        form = self.form
+        if form.validate_on_submit():
+            todo_card.name = form.todo_content.data
+            db.session.add(todo_card)
             db.session.commit()
 
             return redirect(url_for('todo.card'))

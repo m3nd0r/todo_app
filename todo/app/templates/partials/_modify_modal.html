@@ -8,8 +8,8 @@
         <div class="modal-body" style="padding-bottom: 34px;">
             <form class="input-group mb-3" action="/update/{{ todo.id }}" method="post">
                 {{ update_form.csrf_token }}
-                {{ update_form.todo_content(class="form-control")}}
-                {# <input type="text" class="form-control" name="todo_content" value="{{ todo_content }}"> #}
+                {% set value = todo.content %}
+                {{ update_form.todo_content(class="form-control", value=value)}}
                 <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
                 {{ update_form.submit(type="submit", class="btn btn-success") }}
             </form>

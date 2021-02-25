@@ -34,3 +34,16 @@ class UpdateTodoForm(FlaskForm):
                                   })
     todo_card_id = wtforms.HiddenField()
     submit = wtforms.SubmitField('Изменить', render_kw={'id': 'button-addon2'})
+
+
+class RenameCardForm(FlaskForm):
+    """
+    Форма переименования карточки
+    """
+    todo_content = wtforms.StringField('Новое название', validators=[validators.Required(message=('Это обязательное поле'))],
+                              render_kw={
+                                  'placeholder': 'Новое название',
+                                  'aria-describedby': 'button-addon2',
+                                  })
+    todo_card_id = wtforms.HiddenField()
+    submit = wtforms.SubmitField('Изменить', render_kw={'id': 'button-addon2'})

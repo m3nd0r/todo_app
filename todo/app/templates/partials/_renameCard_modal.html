@@ -1,0 +1,19 @@
+
+<div class="modal fade" id="renameCardModal{{todo_card.id}}" tabindex="-1" aria-labelledby="renameCardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="d-flex flex-row-reverse p-2">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding-bottom: 34px;">
+            <form class="input-group mb-3" action="/rename/{{ todo_card.id }}" method="post">
+                {{ rename_form.csrf_token }}
+                {% set value = todo_card.name %}
+                {{ rename_form.todo_content(class="form-control", value=value) }}
+                <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
+                {{ rename_form.submit(type="submit", class="btn btn-success") }}
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
