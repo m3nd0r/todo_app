@@ -13,7 +13,8 @@ from flask_script import Manager
 app = Flask(
     __name__,
     static_url_path='',
-    static_folder='lib/static')
+    static_folder='lib/static',
+    )
 app.config.from_object(Config)
 
 app.register_blueprint(bp1)

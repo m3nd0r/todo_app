@@ -28,7 +28,7 @@ class Gender(db.Model):
     name = db.Column(db.String(50), index=True)
 
     def __str__(self):
-        return f'Gender {self.gender}'
+        return f'Gender {self.name}'
 
 
 class Race(db.Model):
