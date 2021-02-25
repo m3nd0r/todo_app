@@ -46,12 +46,14 @@ class ArchiveView(CoreView, MethodView):
     def get(self):
         add_todo = AddTodoForm()
         update_form = UpdateTodoForm()
+        rename_form = RenameCardForm()
         todo_card_list = TodoCard.query.filter_by(user_id=current_user.id).all()
 
         return render_template(
             '/archive.html',
             add_todo=add_todo,
             update_form=update_form,
+            rename_form=rename_form,
             todo_card_list=todo_card_list)
 
 
@@ -137,7 +139,6 @@ class ModifyTodoView(CoreView, MethodView):
             todo.content = form.todo_content.data
             db.session.add(todo)
             db.session.commit()
-
             return redirect(url_for('todo.card'))
 
 
@@ -183,15 +184,20 @@ class CompleteTodoView(CoreView, MethodView):
 
 class DeleteTodoCardView(CoreView, MethodView):
     """
-    Удаление одной задачи
+    Удаление карточки
     """
     def get(self, todo_card_id):
         todo_card = get_todo_card(todo_card_id)
-        todo_card.active = False
-        db.session.add(todo_card)
-        db.session.commit()
+        if todo_card.active:
+            todo_card.active = False
+            db.session.add(todo_card)
+            db.session.commit()
+            return redirect(url_for('todo.card'))
 
-        return redirect(url_for('todo.card'))
+        else:
+            db.session.delete(todo_card)
+            db.session.commit()
+            return redirect(url_for('todo.archive'))
 
 
 class ProfileView(CoreView, MethodView):

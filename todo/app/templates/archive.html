@@ -9,10 +9,15 @@
     {% if not todo_card.active %}
       <div class="col" style="width: 40%;">
         <div class="card-body">
-          <h5 class="card-title">{{ todo_card.name.title() or '---'}}</h5>
+          <h5 class="card-title">
+              <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
+                {{ todo_card.name.title() or '---'}}
+              </a>
+                {% include "partials/_renameCard_modal.html" %}
+            </h5>
 
           {# Вывести список задач для этой карточки #}
-          {% if not todo_card.items %}
+          {% if todo_card.items %}
           {% for todo in todo_card.items %}
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-end align-items-center">
@@ -22,7 +27,7 @@
                   <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
                 {% endif %}
                 {# <div class="d-flex "> #}
-                  <a data-bs-toggle="modal" data-bs-target="#modifyCardModal" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
+                  <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{ todo.id }}" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
                   <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
                 {# </div> #}
               </li>

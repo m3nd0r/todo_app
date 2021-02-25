@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="modifyCardModal{{todo.id}}" tabindex="-1" aria-labelledby="modifyCardModalLabel" aria-hidden="true">
+<div class="modal fade" id="modifyTodoModal{{todo.id}}" tabindex="-1" aria-labelledby="modifyTodoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="d-flex flex-row-reverse p-2">
@@ -10,7 +10,7 @@
                 {{ update_form.csrf_token }}
                 {% set value = todo.content %}
                 {{ update_form.todo_content(class="form-control", value=value)}}
-                <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
+                <input type="hidden" name="todo_card_id" value="{{ todo_card_id }}">
                 {{ update_form.submit(type="submit", class="btn btn-success") }}
             </form>
         </div>
