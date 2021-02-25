@@ -12,55 +12,60 @@
   </div>
 
   {% if todo_card_list %}
-  <div class="row ">
+  <div class="d-flex justify-content-center row ">
     {% for todo_card in todo_card_list %}
     {% if todo_card.active %}
       <div class="col-sm-6 mb-4" style="width: 40%;">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">
-              <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
-                {{ todo_card.name.title() or '---'}}
-              </a>
-                {% include "partials/_renameCard_modal.html" %}
-            </h5>
+        <a data-bs-toggle="collapse" href="#collapseCard{{ todo_card.id }}" role="button" aria-expanded="true" aria-controls="collapseCard">
+          <i class="bi bi-caret-down-fill"></i>
+        </a>
+        <div class="collapse show" id="collapseCard{{ todo_card.id }}">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
+                  {{ todo_card.name.title() or '---'}}
+                </a>
+                  {% include "partials/_renameCard_modal.html" %}
+              </h5>
 
-            {# Добавить новую задачу #}
-            <form class="input-group mb-3" action="/add_todo" method="post">
-              {{ add_todo.csrf_token }}
-              <input type="text" class="form-control" aria-describedby="button-addon2" name="todo_content" value="{{ todo_content }}">
-              <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
-              {{ add_todo.submit(type="submit", class="btn btn-success", id="button-addon2") }}
-            </form>
+              {# Добавить новую задачу #}
+              <form class="input-group mb-3" action="/add_todo" method="post">
+                {{ add_todo.csrf_token }}
+                <input type="text" class="form-control" aria-describedby="button-addon2" name="todo_content" value="{{ todo_content }}">
+                <input type="hidden" name="todo_card_id" value="{{ todo_card.id }}">
+                {{ add_todo.submit(type="submit", class="btn btn-success", id="button-addon2") }}
+              </form>
 
-            {# Вывести список задач для этой карточки #}
-            {% if todo_card.items %}
-              {% for todo in todo_card.items %}
-                {% if todo.active %}
-                  <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                      {% if todo.status == 'complete' %}
-                        <del class="me-auto"><a style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
-                      {% else %}
-                        <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
-                      {% endif %}
-                      {# <div class="d-flex "> #}
-                        <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{todo.id}}" href="/update/{{ todo.id }}">
-                          <i class="bi bi-pencil-fill"></i>
-                        </a>
+              {# Вывести список задач для этой карточки #}
+              {% if todo_card.items %}
+                {% for todo in todo_card.items %}
+                  {% if todo.active %}
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-end align-items-center">
+                        {% if todo.status == 'complete' %}
+                          <del class="me-auto"><a style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
+                        {% else %}
+                          <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
+                        {% endif %}
+                        {# <div class="d-flex "> #}
+                          <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{todo.id}}" href="/update/{{ todo.id }}">
+                            <i class="bi bi-pencil-fill"></i>
+                          </a>
 
-                        <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
-                      {# </div> #}
-                    </li>
-                  </ul>
-                {% include "partials/_modify_modal.html" %}
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              <p class="text-center">Нет задач</p>
-            {% endif %}
-            <div class="card-footer text-center">
-              <a class="btn btn-danger" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
+                          <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
+                        {# </div> #}
+                      </li>
+                    </ul>
+                  {% include "partials/_modify_modal.html" %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <p class="text-center">Нет задач</p>
+              {% endif %}
+              <div class="card-footer text-center">
+                <a class="btn btn-danger" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
+              </div>
             </div>
           </div>
         </div>
