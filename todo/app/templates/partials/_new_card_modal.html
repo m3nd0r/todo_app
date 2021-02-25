@@ -1,0 +1,19 @@
+
+<div class="modal fade" id="newCardModal" tabindex="-1" aria-labelledby="newCardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="d-flex flex-row-reverse p-2">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding-bottom: 34px;">
+            <form class="p-2 input-group mb-3" action="/add_card" method="post">
+                {{ add_card_form.csrf_token }}
+                {{ add_card_form.todo_card_name(class="form-control")}}
+                {# <input type="text"   style="width: 250px" name="todo_card_name" value="{{ todo_card_name }}"> #}
+                {{ add_card_form.submit(type="button", class="btn btn-success", id="button-addon2") }}
+                </form>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

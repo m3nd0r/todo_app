@@ -4,9 +4,10 @@ from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from todo import db
-from todo.app.forms import AddTodoCardForm, AddTodoForm, UpdateTodoForm, RenameCardForm
+from todo.app.forms import (AddTodoCardForm, AddTodoForm, RenameCardForm,
+                            UpdateTodoForm)
 from todo.app.models import Todo, TodoCard
-from todo.lib.core_views import AbstractView, CoreView
+from todo.lib.core_views import CoreView
 from todo.lib.utils import get_todo, get_todo_card
 from werkzeug.utils import cached_property
 
@@ -137,6 +138,7 @@ class ModifyTodoView(CoreView, MethodView):
         form = self.form
         if form.validate_on_submit():
             todo.content = form.todo_content.data
+            todo.d_modify = datetime.now()
             db.session.add(todo)
             db.session.commit()
             return redirect(url_for('todo.card'))
@@ -199,6 +201,18 @@ class DeleteTodoCardView(CoreView, MethodView):
             db.session.commit()
             return redirect(url_for('todo.archive'))
 
+
+class RestoreCardView(CoreView, MethodView):
+    """
+    Восстановление карточки из архива
+    """
+    def get(self, todo_card_id):
+        todo_card = get_todo_card(todo_card_id)
+        if not todo_card.active:
+            todo_card.active = True
+            db.session.add(todo_card)
+            db.session.commit()
+            return redirect(url_for('todo.archive'))
 
 class ProfileView(CoreView, MethodView):
     """

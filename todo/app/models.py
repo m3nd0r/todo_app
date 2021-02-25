@@ -11,6 +11,7 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     d_create = db.Column(db.DateTime(timezone=True))
+    d_modify = db.Column(db.DateTime(timezone=True))
     active = db.Column(db.Boolean, default=True, index=True)
     status = db.Column(db.String(60), index=True, default='draft')
     user_id = db.Column(db.Integer, db.ForeignKey('todo_user.id'))
@@ -33,4 +34,4 @@ class TodoCard(db.Model):
 
     @property
     def items(self):
-        return Todo.query.filter(Todo.todo_card_id == self.id).order_by(Todo.d_create).all()
+        return Todo.query.filter(Todo.todo_card_id == self.id).order_by(Todo.d_create).all()``

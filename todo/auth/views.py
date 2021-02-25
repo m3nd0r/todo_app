@@ -4,7 +4,7 @@ from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import MethodView
 from flask_login import current_user, login_user, logout_user
 from todo import db
-from todo.lib.core_views import AbstractView, CoreView
+from todo.lib.core_views import CoreView
 from werkzeug.utils import cached_property
 
 from .forms import LoginForm, RegistrationForm

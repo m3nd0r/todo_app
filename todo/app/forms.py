@@ -9,7 +9,12 @@ class AddTodoCardForm(FlaskForm):
     """
     Форма добавления новой карточки
     """
-    todo_card_name = wtforms.StringField('Название карточки', validators=[validators.Required(message=('Это обязательное поле'))])
+    todo_card_name = wtforms.StringField('Название карточки', validators=[validators.Required(message=('Это обязательное поле'))],
+                                render_kw={
+                                    'placeholder': 'Название карточки',
+                                    'id': 'button-addon2',
+                                    'aria-describedby': 'button-addon2',
+                                })
     submit = wtforms.SubmitField('Создать')
 
 

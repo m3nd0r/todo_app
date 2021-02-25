@@ -4,31 +4,31 @@ from todo.lib.utils import get_current_user, get_todo
 from todo.app.models import Todo
 
 
-class AbstractView(MethodView):
-    """
-    Приместь ко всем вьюхам
-    """
-    methods = ['GET', 'POST', 'DELETE']
+# class AbstractView(MethodView):
+#     """
+#     Приместь ко всем вьюхам
+#     """
+#     methods = ['GET', 'POST', 'DELETE']
 
-    def dispatch_request(self, **kwargs):
-        response = getattr(self, request.method.lower())()
+#     def dispatch_request(self, **kwargs):
+#         response = getattr(self, request.method.lower())()
 
-        return response
+#         return response
 
-    def get(self):
-        return redirect('/')
+#     def get(self):
+#         return redirect('/')
 
-    def head(self):
-        return redirect('/')
+#     def head(self):
+#         return redirect('/')
 
-    def post(self):
-        return redirect('/')
+#     def post(self):
+#         return redirect('/')
 
-    def delete(self):
-        return redirect('/')
+#     def delete(self):
+#         return redirect('/')
 
-    def put(self):
-        return redirect('/')
+#     def put(self):
+#         return redirect('/')
 
 
 class CoreView(object):

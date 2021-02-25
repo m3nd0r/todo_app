@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="container">
   {# Добавить новую карточку #}
-  <div class="d-md-flex justify-content-center">
-    <form class="p-2 w-50 input-group mb-3" action="/add_card" method="post">
-      {{ add_card_form.csrf_token }}
-      <input type="text" class="form-control" aria-describedby="button-addon2" style="width: 250px" name="todo_card_name" value="{{ todo_card_name }}">
-      {{ add_card_form.submit(type="button", class="btn btn-success", id="button-addon2") }}
-    </form>
+  <div class="d-md-flex justify-content-center p-3">
+    <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#newCardModal" style="text-color: #fff" href="/add_card">+</button>
+    {% include "partials/_new_card_modal.html" %}
+
   </div>
 
   {% if todo_card_list %}
@@ -26,7 +25,7 @@
                 <a data-bs-toggle="modal" data-bs-target="#renameCardModal{{todo_card.id}}" style="text-decoration: none; color: black;" href="/rename/{{ todo_card.id }}">
                   {{ todo_card.name.title() or '---'}}
                 </a>
-                  {% include "partials/_renameCard_modal.html" %}
+                  {% include "partials/_rename_card_modal.html" %}
               </h5>
 
               {# Добавить новую задачу #}
@@ -48,13 +47,9 @@
                         {% else %}
                           <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
                         {% endif %}
-                        {# <div class="d-flex "> #}
-                          <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{todo.id}}" href="/update/{{ todo.id }}">
-                            <i class="bi bi-pencil-fill"></i>
-                          </a>
-
-                          <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
-                        {# </div> #}
+                        {# Изменить и Удалить #}
+                        <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{todo.id}}" href="/update/{{ todo.id }}"><i class="bi bi-pencil-fill"></i></a>
+                        <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
                       </li>
                     </ul>
                   {% include "partials/_modify_modal.html" %}
