@@ -37,8 +37,11 @@
           {% else %}
             <p class="text-center">Нет задач</p>
           {% endif %}
-          <div class="card-footer">
-            <a class="btn btn-danger" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
+          <div class="card-footer text-center">
+            <div class="btn-group" role="group">
+              <a class="btn btn-danger w-35 btn" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
+              <a class="btn btn-success w-35 btn" href="/delete_card/{{ todo_card.id }}">Восстановить карточку</a>
+            </div>
           </div>
         </div>
       </div>
