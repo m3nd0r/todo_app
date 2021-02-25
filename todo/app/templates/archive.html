@@ -26,11 +26,7 @@
               {% for todo in todo_card.items %}
                 <ul class="list-group">
                   <li class="list-group-item d-flex justify-content-end align-items-center">
-                    {% if todo.status == 'complete' %}
-                      <del class="me-auto"><a style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content }}</a></del>
-                    {% else %}
-                      <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
-                    {% endif %}
+                    <span class="me-auto">{{ todo.content}}</span>
                     {# <div class="d-flex "> #}
                       <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{ todo.id }}" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
                       <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
