@@ -1,7 +1,6 @@
 from sqlalchemy import Column, DateTime, Integer, String, Text
 
 from todo import db
-from todo.app.mixin import CardMixin
 
 
 class Todo(db.Model):
@@ -34,4 +33,12 @@ class TodoCard(db.Model):
 
     @property
     def items(self):
-        return Todo.query.filter(Todo.todo_card_id == self.id).order_by(Todo.d_create).all()``
+        return Todo.query.filter(Todo.todo_card_id == self.id).all()
+
+    @property
+    def sorted_items(self):
+        todo_list = Todo.query.filter(Todo.todo_card_id == self.id)
+        completed_todos = todo_list.filter_by(status='complete').order_by(Todo.d_modify).all()
+        draft_todos = todo_list.filter_by(status='draft').order_by(Todo.d_create).all()
+
+        return draft_todos + completed_todos

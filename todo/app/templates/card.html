@@ -4,8 +4,8 @@
 
 <div class="container">
   {# Добавить новую карточку #}
-  <div class="d-md-flex justify-content-center p-3">
-    <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#newCardModal" style="text-color: #fff" href="/add_card">+</button>
+  <div class="d-flex justify-content-end fs-1">
+    <a class="link-success" data-bs-toggle="modal" data-bs-target="#newCardModal" href="/add_card"><i class="bi bi-plus-circle-fill"></i></a>
     {% include "partials/_new_card_modal.html" %}
 
   </div>
@@ -37,8 +37,8 @@
               </form>
 
               {# Вывести список задач для этой карточки #}
-              {% if todo_card.items %}
-                {% for todo in todo_card.items %}
+              {% if todo_card.sorted_items %}
+                {% for todo in todo_card.sorted_items %}
                   {% if todo.active %}
                     <ul class="list-group">
                       <li class="list-group-item d-flex justify-content-end align-items-center">

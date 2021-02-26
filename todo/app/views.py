@@ -175,7 +175,7 @@ class CompleteTodoView(CoreView, MethodView):
                 todo.status = 'complete'
             else:
                 todo.status = 'draft'
-
+            todo.d_modify = datetime.now()
             db.session.add(todo)
             db.session.commit()
         else:

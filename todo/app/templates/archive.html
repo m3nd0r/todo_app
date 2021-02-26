@@ -27,8 +27,6 @@
                 <ul class="list-group">
                   <li class="list-group-item d-flex justify-content-end align-items-center">
                     <span class="me-auto">{{ todo.content}}</span>
-                    <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{ todo.id }}" href="/update/{{ todo.id }}"> <i class="bi bi-pencil-fill"></i></a>
-                    <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
                   </li>
                 </ul>
                 {% include "partials/_modify_modal.html" %}
@@ -38,8 +36,8 @@
               {% endif %}
               <div class="card-footer text-center">
                 <div class="btn-group" role="group">
-                  <a class="btn btn-danger w-35 btn" href="/delete_card/{{ todo_card.id }}">Удалить карточку</a>
-                  <a class="btn btn-success w-35 btn" href="/restore_card/{{ todo_card.id }}">Восстановить карточку</a>
+                  <a class="btn btn-danger w-35 btn" href="/delete_card/{{ todo_card.id }}">Удалить</a>
+                  <a class="btn btn-success w-35 btn" href="/restore_card/{{ todo_card.id }}">Восстановить</a>
                 </div>
               </div>
             </div>
