@@ -6,9 +6,9 @@
   {# Добавить новую карточку #}
   <div class="d-flex justify-content-end fs-1">
     <a class="link-success" data-bs-toggle="modal" data-bs-target="#newCardModal" href="/add_card"><i class="bi bi-plus-circle-fill"></i></a>
-    {% include "partials/_new_card_modal.html" %}
 
   </div>
+  {% include "partials/_new_card_modal.html" %}
 
   {% if todo_card_list %}
   <div class="d-flex justify-content-center row ">
@@ -16,7 +16,7 @@
     {% if todo_card.active %}
       <div class="col-sm-6 mb-4" style="width: 40%;">
         <a class="d-flex justify-content-end" data-bs-toggle="collapse" href="#collapseCard{{ todo_card.id }}" role="button" aria-expanded="true" aria-controls="collapseCard">
-          <i class="bi bi-caret-down-fill"></i>
+          <i class="bi bi-caret-down-fill custom-icon-color"></i>
         </a>
         <div class="collapse show" id="collapseCard{{ todo_card.id }}">
           <div class="card">
@@ -48,8 +48,8 @@
                           <a class="me-auto" style="text-decoration: none; color: black;" href="/complete/{{ todo.id }}">{{ todo.content}}</a>
                         {% endif %}
                         {# Изменить и Удалить #}
-                        <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{todo.id}}" href="/update/{{ todo.id }}"><i class="bi bi-pencil-fill"></i></a>
-                        <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill"></i></a>
+                        <a data-bs-toggle="modal" data-bs-target="#modifyTodoModal{{todo.id}}" href="/update/{{ todo.id }}"><i class="bi bi-pencil-fill custom-icon-color"></i></a>
+                        <a class="p-2" href="/delete/{{ todo.id }}"><i class="bi bi-trash-fill custom-icon-color"></i></a>
                       </li>
                     </ul>
                   {% include "partials/_modify_modal.html" %}

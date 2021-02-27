@@ -13,3 +13,7 @@ div.login_body {
     padding-bottom: 40px;
     text-align: center
 }
+
+.custom-icon-color {
+    color: #000;
+}
