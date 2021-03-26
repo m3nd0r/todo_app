@@ -1,1 +1,2 @@
-# rpg TODO list v0.0.2
+Сomplicated TODO list
+- was made for better understanding how does blueprint and views work in Flask
